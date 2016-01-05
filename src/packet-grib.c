@@ -36,6 +36,8 @@
 #include <epan/expert.h>
 #include <epan/range.h>
 
+#include <grib_api_version.h>
+
 /* The handle for the dynamic dissector */
 static dissector_handle_t grib_handle = NULL;
 static gboolean grib_handle_inited = FALSE;

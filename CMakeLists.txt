@@ -39,6 +39,9 @@ include_directories (${GLIB2_INCLUDE_DIRS})
 find_package(Wireshark REQUIRED)
 include_directories (${WIRESHARK_INCLUDE_DIRS})
 
+find_package(GRIB_API REQUIRED)
+include_directories (${GRIB_API_INCLUDE_DIRS})
+
 set(LINK_MODE_LIB SHARED)
 set(LINK_MODE_MODULE MODULE)
 
