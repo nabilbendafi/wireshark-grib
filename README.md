@@ -6,6 +6,8 @@ GRIB dissector plugin for wireshark. Is nothing more then wrapper around [ECMWF 
 Build and install
 -----------------
 
+For Linux build:
+
 1. Create a build directory and move to it, for example "mkdir build; cd build"
 2. Generate Makefile "cmake .."
 3. Now build the plugin "make"
