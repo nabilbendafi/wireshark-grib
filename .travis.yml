@@ -1,0 +1,25 @@
+language: c
+
+compiler:
+  - gcc
+
+env:
+  - WIRESHARK_VERSION=latest
+
+before_install:
+  # Install Wireshark
+  - sudo sudo add-apt-repository ppa:wireshark-dev/stable -y
+  - sudo apt-get update -qq
+  - sudo apt-get install wireshark wireshark-dev tshark -qq
+  # Install GRIB Api
+  - wget https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-1.14.4-Source.tar.gz -O /tmp/grib_api.tar.gz
+  - tar -xzvf /tmp/grib_api.tar.gz
+  - cd grib_api-1.14.4-Source && cmake . && make && sudo make install
+
+install:
+  - cmake .
+  - make
+  - make install
+
+script:
+  - true

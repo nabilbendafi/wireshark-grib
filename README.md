@@ -1,6 +1,8 @@
 wireshark-grib
 ==============
 
+[![TravisCI Build Status](https://travis-ci.org/nabilbendafi/wireshark-grib.png?branch=master)](https://travis-ci.org/nabilbendafi/wireshark-grib)
+
 GRIB dissector plugin for wireshark. Is nothing more then wrapper around [ECMWF GRIB-API](https://software.ecmwf.int/wiki/display/GRIB/Home)
 
 Build and install
