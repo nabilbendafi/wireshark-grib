@@ -33,11 +33,17 @@ MESSAGE (STATUS "Plugin will be installed in: ${CMAKE_INSTALL_LIBDIR}")
 
 INCLUDE(UseMakeDissectorReg)
 
+find_package(GLIB2 REQUIRED)
+include_directories (${GLIB2_INCLUDE_DIRS})
+
+find_package(Wireshark REQUIRED)
+include_directories (${WIRESHARK_INCLUDE_DIRS})
+
 set(LINK_MODE_LIB SHARED)
 set(LINK_MODE_MODULE MODULE)
 
 set(DISSECTOR_SRC
-	packet-grib.c
+	src/packet-grib.c
 )
 
 set(PLUGIN_FILES
