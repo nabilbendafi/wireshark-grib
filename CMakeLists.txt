@@ -79,7 +79,7 @@ add_library(grib ${LINK_MODE_MODULE}
 set_target_properties(grib PROPERTIES PREFIX "")
 set_target_properties(grib PROPERTIES LINK_FLAGS "${WS_LINK_FLAGS}")
 
-target_link_libraries(grib wireshark)
+target_link_libraries(grib wireshark grib_api)
 
 install(TARGETS grib
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/plugins NAMELINK_SKIP
