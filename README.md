@@ -5,6 +5,11 @@ wireshark-grib
 
 GRIB dissector plugin for wireshark. Is nothing more then wrapper around [ECMWF GRIB-API](https://software.ecmwf.int/wiki/display/GRIB/Home)
 
+Requirement
+-----------
+
+* [ECMWF GRIB-API](https://software.ecmwf.int/wiki/display/GRIB/Home)
+
 Build and install
 -----------------
 
@@ -31,3 +36,11 @@ Usage
 -----
 
 After plugin installation, just launch Wireshark and select your GRIB port number (a.k.a TCP port on which you reveive raw GRIB data)
+
+Todo
+-----
+
+- [ ] Call grib_api with wireshark buffer
+- [ ] dynamic hf_register_info
+- [ ] parse single GRIB message per TCP connection
+- [ ] parse batch GRIB message per TCP connection

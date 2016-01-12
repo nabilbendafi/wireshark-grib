@@ -42,6 +42,8 @@ include_directories (${WIRESHARK_INCLUDE_DIRS})
 find_package(GRIB_API REQUIRED)
 include_directories (${GRIB_API_INCLUDE_DIRS})
 
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 set(LINK_MODE_LIB SHARED)
 set(LINK_MODE_MODULE MODULE)
 
