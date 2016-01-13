@@ -14,7 +14,10 @@ before_install:
   # Install GRIB Api
   - wget https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-1.14.4-Source.tar.gz -O /tmp/grib_api.tar.gz
   - tar -xzvf /tmp/grib_api.tar.gz
-  - cd grib_api-1.14.4-Source && cmake . && make && sudo make install
+  - mkdir grib_api-1.14.4-Source/build
+  - cd grib_api-1.14.4-Source/build && cmake .. -DENABLE_FORTRAN=OFF && make && sudo make install
+  # Install PyShark
+  - sudo -H pip install pysap pyshark
 
 install:
   - cmake .
@@ -22,4 +25,4 @@ install:
   - make install
 
 script:
-  - true
+  - nosetests --verbosity=2 ${TRAVIS_BUILD_DIR}/test/grib2.py

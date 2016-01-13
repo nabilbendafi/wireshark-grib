@@ -40,7 +40,9 @@ After plugin installation, just launch Wireshark and select your GRIB port numbe
 Todo
 -----
 
-- [ ] Call grib_api with wireshark buffer
+- [x] Call grib_api with wireshark buffer
 - [ ] dynamic hf_register_info
-- [ ] parse single GRIB message per TCP connection
+- [ ] Update items' type
+- [x] parse single GRIB message per TCP connection
 - [ ] parse batch GRIB message per TCP connection
+- [ ] write some dissection test
