@@ -85,9 +85,6 @@ void proto_register_grib(void) {
                                     "Set the TCP ports for GRIB",
                                     &global_grib_tcp_port_range, MAX_TCP_PORT);
 
-    /* Register protocol init routine */
-    register_init_routine(grib_init_protocol);
-
     static hf_register_info hf[] = {
         { &hf_grib_identifier,
             { "Identifier", "grib.identifier",
@@ -129,14 +126,6 @@ static void unregister_grib_port(guint32 port) {
         dissector_delete_uint("tcp.port", port, grib_tcp_handle);
 }
 
-static void grib_init_protocol(void) {
-    int e = 0;
-    FILE *f = fopen("/tmp/GRIB2.tmpl","r");
-
-    grib_api_context = grib_context_get_default(); 
-    grib_api_handle = grib_handle_new_from_file(NULL, f, &e);
-} /* grib_init_protocol */
-
 static guint get_grib_message_len(packet_info *pinfo, tvbuff_t *tvb, int offset) {
     guint grib_message_len = 0;
     guint grib_version = 1;
@@ -169,6 +158,14 @@ static int dissect_grib_message(tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
     /* Clear out stuff in the info column */
     if (check_col(pinfo->cinfo, COL_INFO))
         col_clear(pinfo->cinfo, COL_INFO);
+
+    /* GRIB API errors */
+    int error = 0;
+
+    /* GRIB API call on copied tvbuff */
+    guint tvb_length = tvb_reported_length(tvb);
+    void* data = (void*)tvb_memdup(tvb, 0, tvb_length);
+    grib_api_handle = grib_handle_new_from_message(NULL, data, tvb_length);
 
     if (tree) {
         int current_section = 0;
@@ -282,12 +279,15 @@ static int dissect_grib_message(tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
         grib_keys_iterator_delete(iterator);
     }
 
+    /* Clean */
+    free(data);
+
     return length;
 } /* dissect_grib_message */
 
 void dissect_grib(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree) {
 
-    tcp_dissect_pdus(tvb, pinfo, tree, TRUE, 3, get_grib_message_len, dissect_grib_message);
+    tcp_dissect_pdus(tvb, pinfo, tree, TRUE, 16, get_grib_message_len, dissect_grib_message);
 } /* dissect_grib */
 
 void proto_reg_handoff_grib(void) {
