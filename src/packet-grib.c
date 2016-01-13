@@ -138,7 +138,21 @@ static void grib_init_protocol(void) {
 } /* grib_init_protocol */
 
 static guint get_grib_message_len(packet_info *pinfo, tvbuff_t *tvb, int offset) {
-    return 179;
+    guint grib_message_len = 0;
+    guint grib_version = 1;
+
+    grib_version = tvb_get_guint8(tvb, offset + 7);
+    switch (grib_version) {
+        case 1:
+            /* 5-7 Total length, in octets, of GRIB message */
+            grib_message_len = tvb_get_ntoh24(tvb, offset + 4);
+            break;
+        case 2:
+            /* 9-16 Total length, in octets, of GRIB v2 message */
+            grib_message_len = tvb_get_ntoh64(tvb, offset + 8);
+            break;
+    }
+    return grib_message_len;
 }
 
 /* The GRIB dissector code */
