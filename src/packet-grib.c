@@ -254,17 +254,23 @@ static int dissect_grib_message(tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
                     break;
                 case GRIB_TYPE_STRING:
                     grib_get_string(grib_api_handle, accessor->name, value, &value_len);
-                    proto_tree_add_string(grib_sections[current_section], hf_grib_identifier, tvb,
-                                          accessor->offset, value_len, value);
+                    proto_tree_add_text(grib_sections[current_section], tvb,
+                                        accessor->offset, accessor->length, "%s: %s", accessor->name, value);
                     break;
                 case GRIB_TYPE_DOUBLE:
                     grib_get_double(grib_api_handle, accessor->name, &dvalue);
+                    proto_tree_add_text(grib_sections[current_section], tvb,
+                                        accessor->offset, accessor->length, "%s: %g", accessor->name, dvalue);
                     break;
                 case GRIB_TYPE_LONG:
                     grib_get_long(grib_api_handle, accessor->name, &lvalue);
+                    proto_tree_add_text(grib_sections[current_section], tvb,
+                                        accessor->offset, accessor->length, "%s: %ld", accessor->name, lvalue);
                     break;
                 case GRIB_TYPE_BYTES:
                     grib_get_string(grib_api_handle, accessor->name, value, &value_len);
+                    proto_tree_add_text(grib_sections[current_section], tvb,
+                                        accessor->offset, accessor->length, "%s: %s", accessor->name, value);
                     break;
                 case GRIB_TYPE_LABEL:
                     break;
