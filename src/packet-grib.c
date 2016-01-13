@@ -88,8 +88,7 @@ void proto_register_grib(void) {
     /* Register protocol init routine */
     register_init_routine(grib_init_protocol);
 
-
-   static hf_register_info hf[] = {
+    static hf_register_info hf[] = {
         { &hf_grib_identifier,
             { "Identifier", "grib.identifier",
             FT_STRING, BASE_NONE,
@@ -131,9 +130,12 @@ static void unregister_grib_port(guint32 port) {
 }
 
 static void grib_init_protocol(void) {
-    //if (grib_handle_inited) // add port handlers (settings should be loaded by now)
-        proto_reg_handoff_grib();
-}
+    int e = 0;
+    FILE *f = fopen("/tmp/GRIB2.tmpl","r");
+
+    grib_api_context = grib_context_get_default(); 
+    grib_api_handle = grib_handle_new_from_file(NULL, f, &e);
+} /* grib_init_protocol */
 
 static guint get_grib_message_len(packet_info *pinfo, tvbuff_t *tvb, int offset) {
     return 179;
@@ -153,10 +155,6 @@ static int dissect_grib_message(tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
     /* Clear out stuff in the info column */
     if (check_col(pinfo->cinfo, COL_INFO))
         col_clear(pinfo->cinfo, COL_INFO);
-
-    int e = 0;
-    FILE *f = fopen("/tmp/GRIB2.tmpl","r");
-    grib_api_handle = grib_handle_new_from_file(NULL, f, &e);
 
     if (tree) {
         int current_section = 0;
