@@ -20,9 +20,10 @@ before_install:
   - sudo -H pip install pysap pyshark
 
 install:
-  - cmake .
+  - cd ${TRAVIS_BUILD_DIR} && mkdir build
+  - cd build && cmake ..
   - make
-  - make install
+  - sudo make install
 
 script:
   - nosetests --verbosity=2 ${TRAVIS_BUILD_DIR}/test/grib2.py
