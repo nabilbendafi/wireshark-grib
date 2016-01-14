@@ -35,8 +35,9 @@ Windows builds are not fully tested yet.
 Usage
 -----
 
-After plugin installation, just launch Wireshark and select your GRIB port number (a.k.a TCP port on which you reveive raw GRIB data)
+After plugin installation, just launch Wireshark and select your GRIB port number (a.k.a TCP port on which you reveive raw GRIB data) [default: 9999]
 
+![GRIB dissector plugin](https://github.com/nabilbendafi/wireshark-grib/blob/master/GRIB2.png)
 Todo
 -----
 
@@ -44,5 +45,5 @@ Todo
 - [ ] dynamic hf_register_info
 - [ ] Update items' type
 - [x] parse single GRIB message per TCP connection
-- [ ] parse batch GRIB message per TCP connection
+- [x] parse batch GRIB message per TCP connection
 - [ ] write some dissection test
