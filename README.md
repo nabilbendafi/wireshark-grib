@@ -37,7 +37,7 @@ Usage
 
 After plugin installation, just launch Wireshark and select your GRIB port number (a.k.a TCP port on which you reveive raw GRIB data) [default: 9999]
 
-![GRIB dissector plugin](https://github.com/nabilbendafi/wireshark-grib/blob/master/GRIB2.png)
+![GRIB dissector plugin](https://github.com/nabilbendafi/wireshark-grib/blob/master/GRIB2.gif)
 Todo
 -----
 
